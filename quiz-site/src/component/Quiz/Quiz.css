@@ -43,3 +43,19 @@ font-size:20px;
   border-radius:8px;
   cursor: pointer;
 }
+
+.container .index{
+  margin: auto ;
+  font-size: 18px;
+}
+
+.correct{
+  background: white;
+  border-color: #00d397;
+}
+
+.wrong{
+  background: white;
+  border-color: #ff4d4d;
+
+}
