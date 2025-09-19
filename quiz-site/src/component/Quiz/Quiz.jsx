@@ -1,32 +1,62 @@
-import React , {useState} from 'react'
-import  './quiz.css'
-import {data} from '../../assets/data';
-const quiz = () => {
-    let [index,setIndex]= useState(4);
-    let [question,setQuestion]= useState(data[index]);
+import React, { useState } from "react";
+import "./quiz.css";
+import { data } from "../../assets/data";
 
-    const checkAnswer = (e,ans) =>{
-        if (questiion.ans === ans){
-            e.target.classList.add("correct");
-        }else{
-            e.target.classList.add("wrong");
-        }
+const Quiz = () => {
+  let [index, setIndex] = useState(0);
+  let [locked, setLocked] = useState(false); 
+  let [score, setScore] = useState(0);       
+
+  const checkAnswer = (e, ans) => {
+    if (!locked) {
+      if (data[index].ans === ans) {
+        e.target.classList.add("correct");
+        setScore(score + 1);
+      } else {
+        e.target.classList.add("wrong");
+      }
+      setLocked(true); 
     }
-  return (
-    <div className='container'>
-<h1>quiz  app</h1>
-<hr />
-<h2>{index+1}.{question.question}</h2>
-<ul>
-    <li onClick={(e)=>{checkAns(e,1)}}>{question.option1}</li>
-    <li  onClick={(e)=>{checkAns(e,2)}}>{question.option2}</li>
-    <li onClick={(e)=>{checkAns(e,3)}}>{question.option3}</li>
-    <li  onClick={(e)=>{checkAns(e,4)}}>{question.option4} </li>
-</ul>
-<button>next</button>
-<div className='index'> 1 of 5 question</div>
-    </div>
-  )
-}
+  };
 
-export default quiz
+  const nextQuestion = () => {
+    if (locked) {
+      if (index < data.length - 1) {
+        setIndex(index + 1);
+        setLocked(false);
+
+        
+        let options = document.querySelectorAll("li");
+        options.forEach((option) => {
+          option.classList.remove("correct");
+          option.classList.remove("wrong");
+        });
+      }
+    } else {
+      alert("Please select an answer first!");
+    }
+  };
+
+  return (
+    <div className="container">
+      <h1>Quiz App</h1>
+      <hr />
+      <h2>
+        {index + 1}. {data[index].question}
+      </h2>
+      <ul className={locked ? "disabled" : ""}>
+        <li onClick={(e) => checkAnswer(e, 1)}>{data[index].option1}</li>
+        <li onClick={(e) => checkAnswer(e, 2)}>{data[index].option2}</li>
+        <li onClick={(e) => checkAnswer(e, 3)}>{data[index].option3}</li>
+        <li onClick={(e) => checkAnswer(e, 4)}>{data[index].option4}</li>
+      </ul>
+      <button onClick={nextQuestion}>Next</button>
+      <div className="index">
+        {index + 1} of {data.length} questions
+      </div>
+      <div className="score">Score: {score}</div>
+    </div>
+  );
+};
+
+export default Quiz;
