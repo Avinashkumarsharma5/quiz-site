@@ -75,3 +75,20 @@
   color: white;
   border-color: #d93636;
 }
+
+.result {
+  text-align: center;
+  padding: 30px;
+}
+
+.result h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #553f9a;
+}
+
+.result p {
+  font-size: 20px;
+  margin-bottom: 25px;
+  color: #333;
+}
